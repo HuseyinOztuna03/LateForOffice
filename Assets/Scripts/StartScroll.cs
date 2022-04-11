@@ -7,14 +7,14 @@ public class StartScroll : MonoBehaviour
     public BoxCollider2D colliderS;
     public Rigidbody2D rb;
     private float width;
-    private float scrollSpeed= -1.4f;
+    private float scrollSpeed= -4.2f;
     void Start()
     {
         colliderS= GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
 
         width = colliderS.size.x;
-        colliderS.enabled = false;
+        colliderS.enabled = true;
 
         rb.velocity = new Vector2(scrollSpeed, 0);
     }
