@@ -2,49 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+    
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public float speed;
-    public float jumpForce;
-    private float moveInput;
-    private bool isGrounded;
-    public Transform feetPos;
-    public float checkRadius;
-    public LayerMask whatIsGround;
+    public bool isGrounded = false;
+    public float movementSpeed;
+    public Rigidbody2D rb;
 
-    bool isJumping;
-
-    private float jumpTimeCounter;
-    public float jumpTime;
-
-    void Start(){
-        rb = GetComponent<Rigidbody2D>();
+    public float jumpForce = 20f;
+    public Transform feet;
+    public LayerMask groundLayers;
+    float mx;
+    void Start()
+    {
+        
     }
-    void FixedUpdate(){
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+    
+    void Update() {
+        mx = Input.GetAxisRaw("Horizontal");
+        if  (Input.touchCount > 0 && IsGrounded())
+        {
+            Touch touch = Input.GetTouch(0);
+            Jump();
+        }    
     }
-    void Update(){
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+    private void FixedUpdate() {
+        Vector2 movement = new Vector2(mx * movementSpeed, rb.velocity.y);
 
-        if(isGrounded == true && Input.GetKeyDown(KeyCode.Space)){
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpForce;
+        rb.velocity = movement;
+    }
+    void Jump(){
+        Vector2 movement = new Vector2(rb.velocity.x, jumpForce);
+
+        rb.velocity = movement;//
+    }
+    public bool IsGrounded() {
+        Collider2D groundcheck = Physics2D.OverlapCircle(feet.position, 0.5f, groundLayers);
+
+        if(groundcheck.gameObject != null){
+            return true;
         }
-        if(Input.GetKey(KeyCode.Space) && isJumping == true){
-            
-            if(jumpTimeCounter > 0){
-                rb.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            } else {
-                isJumping = false;
-            }
-        }
-        if(Input.GetKeyUp(KeyCode.Space)){
-            isJumping = false;
-        }
+        return false;
     }
 }
-
