@@ -7,7 +7,7 @@ public class GScroll : MonoBehaviour
     public BoxCollider2D colliderS;
     public Rigidbody2D rb;
     private float width;
-    private float scrollSpeed= -5.25f;
+    private float scrollSpeed= -5f;
     void Start()
     {
         colliderS= GetComponent<BoxCollider2D>();

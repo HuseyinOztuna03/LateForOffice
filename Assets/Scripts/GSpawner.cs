@@ -14,7 +14,7 @@ public class GSpawner : MonoBehaviour
     }
     void Start()
     {
-        float sayi = Random.Range(1.6875f,1.875f);
+        float sayi = Random.Range(1.275f,1.3f);//1.875f
         Invoke("Bekle" , sayi);
         Invoke("deneme" , sayi);
         CancelInvoke("Start");

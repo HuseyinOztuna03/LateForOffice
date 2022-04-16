@@ -14,7 +14,7 @@ public class OSpawner : MonoBehaviour
     }
     void Start()
     {
-        float sayi = Random.Range(1f,10f);
+        float sayi = Random.Range(0.65f,1f);
         Invoke("Bekle" , sayi);
         Invoke("deneme" , sayi);
         CancelInvoke("Start");
